@@ -5,7 +5,7 @@ export function createGameElements() {
   scoreDisplay.style.position = "absolute";
   scoreDisplay.style.color = "red";
   scoreDisplay.style.top = "10%";
-  scoreDisplay.style.right = "20%";
+  scoreDisplay.style.right = "30%";
   document.body.appendChild(scoreDisplay);
 
   const restartButton = document.createElement("button");
@@ -22,7 +22,7 @@ export function createGameElements() {
   Highscore.textContent = "Highest Score";
   Highscore.style.position = "absolute";
   Highscore.style.left = "50%";
-  Highscore.style.top = "30%";
+  Highscore.style.top = "10%";
   Highscore.style.fontSize = "32px";
   Highscore.style.color = "green";
   Highscore.style.padding = "10px 10px";
@@ -37,26 +37,22 @@ export function createGameElements() {
   GameoverText.style.position = "absolute";
   GameoverText.style.top = "20%";
 
-
-const canvas=document.getElementById("canvas");
-canvas.style.display="none"
+  const canvas = document.getElementById("canvas");
+  canvas.style.display = "none";
   const gameContainer = document.createElement("div");
   gameContainer.id = "game-container";
   document.body.appendChild(gameContainer);
 
-  // Create game title element
   const gameTitle = document.createElement("div");
   gameTitle.id = "game-title";
   gameTitle.textContent = "Car Lane Game";
   gameContainer.appendChild(gameTitle);
 
-  // Create start button element
   const startButton = document.createElement("button");
   startButton.id = "start-button";
   startButton.textContent = "Start Game";
   gameContainer.appendChild(startButton);
 
-  
   document.body.style.height = "100%";
   document.body.style.margin = "0";
   document.body.style.display = "flex";
@@ -95,6 +91,6 @@ canvas.style.display="none"
     Highscore,
     GameoverText,
     gameContainer,
-    startButton
+    startButton,
   };
 }

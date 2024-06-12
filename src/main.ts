@@ -72,8 +72,8 @@ function game() {
   ];
 
   let lanes = [
-    canvas.width / 4 - 200,
-    canvas.width / 2 - 50,
+    canvas.width / 4 - 150,
+    canvas.width / 2 - 150,
     (3 * canvas.width) / 4 - 50,
   ];
   let laneOccupied = [false, false, false];
@@ -85,6 +85,7 @@ function game() {
       let laneIndex = lanes.indexOf(availableLanes[randomLane]);
       let timediff = (Date.now() - starttime) / 1000;
       let speed = timediff * 0.05 + 1;
+      let randomX = Math.random() * 50;
 
       let enemyCar = new EnemyCar(
         lanes[laneIndex],
@@ -111,7 +112,7 @@ function game() {
   function restartGame() {
     document.body.removeChild(GameoverText);
     console.log("function called");
-    // Reset game state variables
+
     gameOver = false;
     score = 0;
     starttime = Date.now();
@@ -121,14 +122,11 @@ function game() {
     laneOccupied = [false, false, false];
     enemy = [];
 
-    // Clear the canvas
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-    // Reset the car positions
     car.x = 100;
     car.y = window.innerHeight - 200;
 
-    // Re-create the rectangles
     for (let i = 0; i < 2; i++) {
       y_offset = 0;
 
@@ -171,13 +169,14 @@ function game() {
           enemy.splice(index, 1);
           score++;
         } else {
-          if (checkCollision(ecar, car, 45000)) {
+          if (checkCollision(ecar, car, 43000)) {
             gameOver = true;
           }
         }
       });
       car.update(0, 0);
     } else {
+      scoreDisplay.style.display = "none";
       document.body.appendChild(GameoverText);
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       let highscore = localStorage.getItem("score");
