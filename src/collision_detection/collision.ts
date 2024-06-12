@@ -26,14 +26,14 @@ export function checkCollision(
     width: car2.width,
     height: car2.height,
   };
-  //overlap on x-axis
+  //overlap  x-axis
   const dx = Math.max(
     0,
     Math.min(rectA.x + rectA.width, rectB.x + rectB.width) -
       Math.max(rectA.x, rectB.x)
   );
 
-  // overlap on y axis
+  // overlap y axis
   const dy = Math.max(
     0,
     Math.min(rectA.y + rectA.height, rectB.y + rectB.height) -

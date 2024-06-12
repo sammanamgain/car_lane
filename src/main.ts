@@ -56,7 +56,7 @@ function game() {
 
   let car = new UserCar(
     100,
-    window.innerHeight - 200,
+    window.innerHeight - 400,
     250,
     250,
     1,
@@ -84,7 +84,7 @@ function game() {
       let randomLane = Math.floor(Math.random() * availableLanes.length);
       let laneIndex = lanes.indexOf(availableLanes[randomLane]);
       let timediff = (Date.now() - starttime) / 1000;
-      let speed = timediff * 0.05 + 1;
+      let speed = timediff * 0.5 + 1;
       let randomX = Math.random() * 50;
 
       let enemyCar = new EnemyCar(
@@ -155,6 +155,7 @@ function game() {
   car.draw();
   function update() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
+    scoreDisplay.style.display = "block";
     scoreDisplay.innerText = "Score: " + score;
 
     if (!gameOver) {
@@ -169,7 +170,7 @@ function game() {
           enemy.splice(index, 1);
           score++;
         } else {
-          if (checkCollision(ecar, car, 43000)) {
+          if (checkCollision(ecar, car, 41000)) {
             gameOver = true;
           }
         }
@@ -186,7 +187,6 @@ function game() {
         HighestScore = true;
       }
       HighestScore && document.body.appendChild(Highscore);
-      // Game Over
 
       ctx.font = "32px Arial";
       ctx.fillStyle = "red";
@@ -203,7 +203,6 @@ function game() {
 }
 
 startButton.addEventListener("click", () => {
-  console.log("on click");
   document.body.removeChild(gameContainer);
 
   game();

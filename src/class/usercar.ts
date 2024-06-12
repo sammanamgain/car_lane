@@ -15,25 +15,24 @@ export class UserCar extends Car {
     this.addEventListener();
   }
 
-  // Override the update method
   update(dx: number, dy: number) {
     dx *= this.speed;
     dy *= this.speed;
     this.x += dx;
     this.y += dy;
 
-    // Call the draw method from the parent Car class
     this.draw();
   }
 
   addEventListener() {
     window.addEventListener("keydown", (event) => {
       if (event.key === "d") {
-        this.x += 10;
-        // Your code here
+        for (let i = 0; i < 10; i++) {
+          this.update(10, 0);
+        }
       }
       if (event.key === "a") {
-        this.x -= 10;
+        this.x -= 100;
       }
       if (event.key === "w") {
         this.y -= 5;
