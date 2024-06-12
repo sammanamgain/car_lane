@@ -62,12 +62,12 @@ function game() {
     200,
     200,
     1,
-    "/Car.png",
+    "Car.png",
     ctx
   );
   let carlist = [
-    "/Mini_van.png",
-    "/Mini_truck.png",
+    "Mini_van.png",
+    "Mini_truck.png",
     "Police.png",
     "truck.png",
     "taxi.png",
@@ -87,7 +87,7 @@ function game() {
       let laneIndex = lanes.indexOf(availableLanes[randomLane]);
       let timediff = (Date.now() - starttime) / 1000;
       let speed = timediff * 0.05 + 1;
-      console.log("printing speed:",speed)
+      console.log("printing speed:", speed);
       let enemyCar = new EnemyCar(
         lanes[laneIndex],
         0,
