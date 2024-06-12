@@ -14,11 +14,10 @@ export class EnemyCar extends Car {
 
   // Override the update method
   update() {
-    let dx = 1;
-    let dy = 1;
-    dx *= this.speed;
+    let dy = 0.75;
+
     dy *= this.speed;
-    // this.x += dx;
+
     this.y += dy;
 
     // Call the draw method from the parent Car class
