@@ -13,6 +13,7 @@ export function checkCollision(
   car2: Car,
   minOverlap: number
 ): boolean {
+  // console.log("collison detection called");
   const rectA = {
     x: car1.x,
     y: car1.y,
@@ -26,6 +27,7 @@ export function checkCollision(
     width: car2.width,
     height: car2.height,
   };
+
   //overlap  x-axis
   const dx = Math.max(
     0,
@@ -33,7 +35,7 @@ export function checkCollision(
       Math.max(rectA.x, rectB.x)
   );
 
-  // overlap y axis
+  // // overlap y axis
   const dy = Math.max(
     0,
     Math.min(rectA.y + rectA.height, rectB.y + rectB.height) -

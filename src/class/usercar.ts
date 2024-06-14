@@ -16,10 +16,8 @@ export class UserCar extends Car {
   }
 
   update(dx: number, dy: number) {
-    dx *= this.speed;
-    dy *= this.speed;
-    this.x += dx;
-    this.y += dy;
+  
+    super.update(dx, dy);
 
     this.draw();
   }

@@ -16,11 +16,14 @@ const {
 import { distance, checkCollision } from "./collision_detection/collision";
 
 let startGame = true;
+let enemySpawnInterval;
 
 function game() {
   let canvas: HTMLCanvasElement = document.getElementById(
     "canvas"
   ) as HTMLCanvasElement;
+
+  // at start screen, i donot want to load canvas here, after user click , start game, then only load canvas
   canvas.style.display = "block";
   canvas.style.overflow = "hidden";
   canvas.style.backgroundColor = "black";
@@ -37,6 +40,8 @@ function game() {
   let rectangle: Rectangles[] = [];
   let starttime = Date.now();
   let HighestScore = false;
+  let speed = 1;
+  // draw the rectangles tiles on the  road
   for (let i = 0; i < 2; i++) {
     y_offset = 0;
 
@@ -54,11 +59,12 @@ function game() {
     x_offset += 400;
   }
 
+  // create a player car
   let car = new UserCar(
     100,
     window.innerHeight - 400,
-    250,
-    250,
+    90,
+    230,
     1,
     "Car.png",
     ctx
@@ -71,6 +77,7 @@ function game() {
     "taxi.png",
   ];
 
+  // defining the lanes
   let lanes = [
     canvas.width / 4 - 150,
     canvas.width / 2 - 150,
@@ -79,19 +86,20 @@ function game() {
   let laneOccupied = [false, false, false];
   let enemy: EnemyCar[] = [];
   function spawnEnemyCar() {
+    // checking if there any free lane
     let availableLanes = lanes.filter((_, index) => !laneOccupied[index]);
     if (availableLanes.length > 0) {
       let randomLane = Math.floor(Math.random() * availableLanes.length);
       let laneIndex = lanes.indexOf(availableLanes[randomLane]);
       let timediff = (Date.now() - starttime) / 1000;
-      let speed = timediff * 0.5 + 1;
+
       let randomX = Math.random() * 50;
 
       let enemyCar = new EnemyCar(
         lanes[laneIndex],
         0,
-        300,
-        300,
+        90,
+        230,
         speed,
         carlist[Math.floor(Math.random() * carlist.length)],
         ctx
@@ -103,16 +111,17 @@ function game() {
     }
   }
 
-  setInterval(spawnEnemyCar, 2000);
+  enemySpawnInterval = setInterval(spawnEnemyCar, 2000);
 
   enemy.forEach((car) => {
     car.draw();
   });
 
+  // to reset game after game finish and player clicks to to restart game, this will invoke
   function restartGame() {
+    Highscore.innerText = "";
     document.body.removeChild(GameoverText);
-    console.log("function called");
-
+    clearInterval(enemySpawnInterval);
     gameOver = false;
     score = 0;
     starttime = Date.now();
@@ -121,6 +130,7 @@ function game() {
     y_offset = 0;
     laneOccupied = [false, false, false];
     enemy = [];
+    speed = 1;
 
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
@@ -143,7 +153,7 @@ function game() {
       }
       x_offset += 500;
     }
-
+    enemySpawnInterval = setInterval(spawnEnemyCar, 2000);
     update();
   }
 
@@ -170,13 +180,14 @@ function game() {
           enemy.splice(index, 1);
           score++;
         } else {
-          if (checkCollision(ecar, car, 41000)) {
+          if (checkCollision(ecar, car, 10)) {
             gameOver = true;
           }
         }
       });
       car.update(0, 0);
     } else {
+      // after game over is true
       scoreDisplay.style.display = "none";
       document.body.appendChild(GameoverText);
       ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -201,9 +212,8 @@ function game() {
   }
   update();
 }
-
+// removing the start screen after clicking on start button
 startButton.addEventListener("click", () => {
   document.body.removeChild(gameContainer);
-
   game();
 });

@@ -34,21 +34,33 @@ export class Car {
     this.speed = speed;
   }
 
-  // Draw the Car
   draw() {
     if (this.imageLoaded) {
-      this.ctx.drawImage(this.image, this.x, this.y, this.width, this.height);
+      this.ctx.drawImage(
+        this.image,
+        78,
+        17,
+        90,
+        230,
+        this.x,
+        this.y,
+        this.width,
+        this.height
+      );
     }
   }
 
-  // Update the Car position
   update(dx: number, dy: number) {
-    dx *= this.speed;
-    dy *= this.speed;
+    // dx *= this.speed;
+    // dy *= this.speed;
     this.x += dx;
     this.y += dy;
+
+    if (this.x > window.innerWidth / 1.75 - this.width) {
+      this.x = window.innerWidth / 1.75 - this.width;
+    } else if (this.x <= 0) {
+      this.x = 0;
+    }
     this.draw();
   }
-
-  
 }
